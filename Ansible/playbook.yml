@@ -142,14 +142,17 @@
         
   - name: Deploy AWS CSI Driver
     become: false
-    shell: |
-      kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-0.10"
+    shell: kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-0.10"
           
   - name: Deploy the required RBAC and the cloud-controller-manager 
     shell: |
       cd /home/ubuntu
       kubectl apply -f https://raw.githubusercontent.com/kubernetes/cloud-provider-aws/master/manifests/rbac.yaml
       kubectl apply -f https://raw.githubusercontent.com/kubernetes/cloud-provider-aws/master/manifests/aws-cloud-controller-manager-daemonset.yaml
+
+  - name: Deploy Nginx Ingress 
+    shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/aws/deploy.yaml
+      
 
 
 
