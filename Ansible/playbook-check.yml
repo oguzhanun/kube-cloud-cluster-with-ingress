@@ -1,0 +1,54 @@
+- hosts: all
+  tasks:
+  - name: debug hostnames
+    debug:
+      msg: "{{ hostvars[groups['role_master'][0]]['ansible_hostname'] }}"
+  - name: debug hostnames
+    debug:
+      msg: "{{ hostvars[inventory_hostname]['ansible_facts']['hostname'] }}"
+
+  # - name: get gettext-base
+  #   apt:
+  #     package: gettext-base
+  #     state: present
+
+  # - name: change controlplane_endpoint and initialize the Kubernetes cluster using kubeadm
+  #   become: true
+  #   shell: |
+  #     export CONTROLPLANE_ENDPOINT={{ hostvars[inventory_hostname]['private_ip_address'] }}
+  #     envsubst < /home/ubuntu/clusterconfig-base.yml > /home/ubuntu/clusterconfig.yml
+
+
+  # - name: debug private dns names - master
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_master'][0]]['private_dns_name'] }}"
+
+  # - name: debug private dns names - worker 2
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_worker'][0]]['private_dns_name'] }}"
+    
+  # - name: debug private dns names - worker 1
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_worker'][1]]['private_dns_name'] }}"
+
+  # - name: debug instance id - master
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_master'][0]]['instance_id'] }}"
+
+  # - name: debug instance id - worker 2
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_worker'][0]]['instance_id'] }}"
+    
+  # - name: debug instance id - worker 1
+  #   debug:
+  #     msg: "{{ hostvars[groups['role_worker'][1]]['instance_id'] }}"
+
+
+  # - name: Initialize the Kubernetes cluster using kubeadm
+  #   become: true
+  #   shell: kubeadm config print init-defaults > /home/ubuntu/config.yaml
+
+  # - name: Copy join command to local file
+  #   fetch: 
+  #     src: /home/ubuntu/config.yaml
+  #     dest: /Users/home/cluster-config.yaml
