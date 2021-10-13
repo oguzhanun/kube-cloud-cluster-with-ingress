@@ -147,8 +147,12 @@
   - name: Deploy the required RBAC and the cloud-controller-manager 
     shell: |
       cd /home/ubuntu
-      kubectl apply -f https://raw.githubusercontent.com/kubernetes/cloud-provider-aws/master/manifests/rbac.yaml
-      kubectl apply -f https://raw.githubusercontent.com/kubernetes/cloud-provider-aws/master/manifests/aws-cloud-controller-manager-daemonset.yaml
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+      chmod 777 get_helm.sh
+      ./get_helm.sh
+      helm repo add aws-cloud-controller-manager https://kubernetes.github.io/cloud-provider-aws
+      helm repo update
+      helm upgrade --install aws-cloud-controller-manager aws-cloud-controller-manager/aws-cloud-controller-manager --set image.tag=v1.18.0-alpha.0
 
   - name: Deploy Nginx Ingress 
     shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/aws/deploy.yaml
